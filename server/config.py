@@ -1,4 +1,5 @@
-# Standard library imports 
+# config.py
+# Standard library imports  
 
 # Remote library imports
 from flask import Flask
