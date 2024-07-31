@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 
 # Remote library imports
 from flask import Flask, request, make_response
@@ -7,6 +8,7 @@ from flask_restful import Resource, Api
 # Local imports
 from config import app, db
 from models import User, Workout, Exercise, Set
+from auth import AuthResource, ProtectedResource
 
 # Create the database tables
 with app.app_context():
@@ -151,6 +153,8 @@ class SetByIdResource(Resource):
         return make_response({}, 204)
 
 api = Api(app)
+api.add_resource(AuthResource, '/auth')
+api.add_resource(ProtectedResource, '/protected')
 api.add_resource(UserResource, '/users')
 api.add_resource(UserByIdResource, '/users/<int:id>')
 api.add_resource(WorkoutResource, '/workouts')
