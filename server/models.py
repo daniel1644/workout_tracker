@@ -19,6 +19,9 @@ class User(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<User {self.name}>'
+    
+
+
 
 class Workout(db.Model, SerializerMixin):
     __tablename__ = 'workouts'
@@ -35,6 +38,9 @@ class Workout(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Workout {self.name}>'
+    
+
+
 
 class Exercise(db.Model, SerializerMixin):
     __tablename__ = 'exercises'
@@ -50,6 +56,9 @@ class Exercise(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Exercise {self.name}>'
+    
+    
+
 
 class Set(db.Model, SerializerMixin):
     __tablename__ = 'sets'
