@@ -9,6 +9,9 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
+import os
+JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'super-secret-key'
+
 # Local imports
 
 # Instantiate app, set attributes

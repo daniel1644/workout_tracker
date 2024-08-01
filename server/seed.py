@@ -3,6 +3,7 @@
 
 # Standard library imports
 from random import randint, choice as rc
+import bcrypt
 
 # Remote library imports
 from faker import Faker
@@ -28,6 +29,7 @@ with app.app_context():
         user = User(
             name=fake.name(),
             email=fake.email(),
+            password=bcrypt.hashpw(fake.password().encode('utf-8'), bcrypt.gensalt()),
         )
         users.append(user)
 
@@ -70,3 +72,4 @@ with app.app_context():
 
     db.session.commit()
     print("Complete.")
+

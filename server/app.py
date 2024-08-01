@@ -1,8 +1,9 @@
+# app.py
 #!/usr/bin/env python3
 import os
 
 # Remote library imports
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, jsonify, session
 from flask_restful import Resource, Api
 
 # Local imports
@@ -16,7 +17,16 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    return '<h1>Project Server</h1>'
+    return '<h1>WORKOUT TRACKER</h1>'
+
+@app.route('/protected')
+def protected():
+    data = {'message': 'This is a protected endpoint'}
+    return jsonify(data)
+
+
+
+
 
 class UserResource(Resource):
     def get(self):
@@ -164,6 +174,8 @@ api.add_resource(ExerciseByIdResource, '/exercises/<int:id>')
 api.add_resource(SetResource, '/sets')
 api.add_resource(SetByIdResource, '/sets/<int:id>')
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5555, debug=True)
     
+

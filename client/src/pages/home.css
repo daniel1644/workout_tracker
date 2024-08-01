@@ -1,0 +1,14 @@
+/* src/pages/Home.css */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .img-fluid {
+    max-width: 200px; /* Adjust the size as needed */
+    height: auto;
+    border-radius: 8px;
+  }
+  

@@ -9,6 +9,8 @@ from config import db
 
 bcrypt = Bcrypt()
 
+
+
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
@@ -131,3 +133,5 @@ class Set(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Set {self.weight} {self.reps}>"
+
+
