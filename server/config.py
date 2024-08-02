@@ -1,5 +1,4 @@
 # config.py
-# Standard library imports  
 
 # Remote library imports
 from flask import Flask
@@ -7,17 +6,17 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 from sqlalchemy import MetaData
 
 import os
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'super-secret-key'
 
-# Local imports
-
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 app.json.compact = False
 
 # Define metadata, instantiate db
@@ -33,3 +32,6 @@ api = Api(app)
 
 # Instantiate CORS
 CORS(app)
+
+# Initialize JWT Manager
+jwt = JWTManager(app)

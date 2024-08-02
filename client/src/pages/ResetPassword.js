@@ -4,13 +4,14 @@ import axios from 'axios';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/auth/reset-password', { email })
-      .then(response => setMessage('Password reset link sent to your email.'))
-      .catch(error => setMessage('Error resetting password.'));
+      .then(response => {
+        alert('Password reset email sent.');
+      })
+      .catch(error => console.error('Password reset failed:', error));
   };
 
   return (
@@ -28,9 +29,8 @@ const ResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Send Reset Link</button>
+        <button type="submit" className="btn btn-primary">Reset Password</button>
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 };

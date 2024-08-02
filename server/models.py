@@ -25,24 +25,38 @@ class User(db.Model, SerializerMixin):
 
     workouts = association_proxy('user_workouts', 'workout', creator=lambda workout_obj: Workout(user=workout_obj))
 
+    @classmethod
+    def create(cls, username, email, password):
+        try:
+            user = cls(username=username, email=email)
+            user.password = password
+            db.session.add(user)
+            db.session.commit()
+            return user
+        except Exception as e:
+            print(f"Error creating user: {e}")
+            return None
+
     @property
     def password(self):
         raise AttributeError('password is not readable attribute')
 
     @password.setter
     def password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        try:
+            self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        except Exception as e:
+            print(f"Error setting password: {e}")
+            raise ValueError("Error setting password")
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
 
-    @validates('username')
     def validate_username(self, key, username):
         if not username:
             raise ValueError("Username cannot be empty")
         return username
 
-    @validates('email')
     def validate_email(self, key, email):
         if not email:
             raise ValueError("Email cannot be empty")

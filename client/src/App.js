@@ -1,13 +1,12 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/ Home';
-import Dashboard from './pages/ Dashboard';
+import Dashboard from './pages/Dashboard'; 
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/ Register';
-import ResetPassword from './pages/PasswordReset';
+import ResetPassword from './pages/ResetPassword';
 import WorkoutDetails from './pages/WorkoutDetails';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';

@@ -1,9 +1,8 @@
 # app.py
 #!/usr/bin/env python3
-import os
 
 # Remote library imports
-from flask import Flask, request, make_response, jsonify, session
+from flask import Flask, request, make_response, jsonify
 from flask_restful import Resource, Api
 
 # Local imports
@@ -19,13 +18,22 @@ with app.app_context():
 def index():
     return '<h1>WORKOUT TRACKER</h1>'
 
-@app.route('/protected')
-def protected():
-    data = {'message': 'This is a protected endpoint'}
-    return jsonify(data)
-
-
-
+@app.route('/api/users', methods=['POST'])
+def register():
+    data = request.get_json()
+    username = data['username']
+    email = data['email']
+    password = data['password']
+    user = User(username=username, email=email)
+    user.password = password
+    db.session.add(user)
+    db.session.commit()
+    if user:
+        # Return a successful response
+        return jsonify({'message': 'User created successfully'}), 201
+    else:
+        # Return an error response
+        return jsonify({'error': 'Internal Server Error'}), 500
 
 
 class UserResource(Resource):
@@ -174,8 +182,5 @@ api.add_resource(ExerciseByIdResource, '/exercises/<int:id>')
 api.add_resource(SetResource, '/sets')
 api.add_resource(SetByIdResource, '/sets/<int:id>')
 
-
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-    
-
+    app.run(debug=True)

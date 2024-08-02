@@ -18,12 +18,12 @@ class AuthResource(Resource):
         return make_response(jsonify({'access_token': access_token}), 200)
 
 class ProtectedResource(Resource):
-    @jwt_required
+    @jwt_required()
     def get(self):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).one_or_none()
         if user is None:
             return make_response(jsonify({'error': 'User not found'}), 404)
         response = {'message': f'Hello, {current_user}!'}
-        response.update(user.to_dict())  # assuming User model has a to_dict method
+        response.update(user.to_dict()) 
         return make_response(jsonify(response), 200)
